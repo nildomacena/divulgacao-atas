@@ -42,6 +42,12 @@ dependencies:
   firebase_storage: ^10.1.0
   flip_card: ^0.6.0
   awesome_select: ^5.1.0
+  mockito: ^5.0.16
+  build_runner: ^2.1.5
+  file_picker: ^4.3.0
+  auto_size_text: ^3.0.0
+  flutter_staggered_grid_view: ^0.5.0
+  url_launcher: ^6.0.18
   
 dev_dependencies:
   flutter_test:
@@ -53,7 +59,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
-
+  test: ^1.17.12
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

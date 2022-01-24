@@ -1,6 +1,4 @@
-import 'package:awesome_select/awesome_select.dart';
 import 'package:divulgacao_atas/login/login_repository.dart';
-import 'package:divulgacao_atas/login/widgets/escolher_campus_page.dart';
 import 'package:divulgacao_atas/model/campus_model.dart';
 import 'package:divulgacao_atas/services/util_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -37,6 +35,10 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
+    repository.firebaseProvider.usuario$.listen((p0) {
+      print(p0);
+    });
+
     repository.getCampi().then((value) {
       campi = value;
       print('Campis: $value');
@@ -46,7 +48,7 @@ class LoginController extends GetxController {
   }
 
   irParaHome() {
-    Get.offAndToNamed(Routes.home);
+    Get.offAndToNamed(Routes.listaAtas);
   }
 
   String? validatorEmail(String? value) {
@@ -111,6 +113,7 @@ class LoginController extends GetxController {
       await repository.criarUsuario(emailController.text, nomeController.text,
           senhaController.text, campusSelecionado!);
       Get.snackbar('Sucesso!', 'Usuário criado com sucesso');
+      irParaHome();
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'email-already-in-use':
@@ -126,8 +129,24 @@ class LoginController extends GetxController {
     }
   }
 
-  submitLogin() {
+  submitLogin() async {
     formLoginKey.currentState!.validate();
+    try {
+      await repository.fazerLogin(emailController.text, senhaController.text);
+      irParaHome();
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'email-already-in-use':
+          utilService.snackBarErro(
+              mensagem: 'Email já utilizado. Tente fazer o login');
+          break;
+        default:
+          utilService.snackBarErro(mensagem: 'Ocorreu um erro: ${e.code}');
+      }
+    } catch (e) {
+      print('Erro: $e');
+      utilService.snackBarErro(mensagem: 'Ocorreu um erro: $e');
+    }
   }
 
   toggleModo() {

@@ -14,4 +14,8 @@ class LoginRepository {
       String email, String nome, String senha, Campus campus) {
     return authProvider.criarUsuario(email, nome, senha, campus);
   }
+
+  Future<dynamic> fazerLogin(String email, String senha) {
+    return authProvider.fazerLogin(email, senha);
+  }
 }

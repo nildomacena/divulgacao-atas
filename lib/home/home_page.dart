@@ -1,6 +1,5 @@
 import 'package:divulgacao_atas/home/home_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -26,9 +25,9 @@ class HomePage extends GetView<HomeController> {
                       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Instituto_Federal_Marca_2015.svg/1200px-Instituto_Federal_Marca_2015.svg.png',
                       fit: BoxFit.fitHeight),
                 ),
-                Text('Divulgação de Atas'),
+                const Text('Divulgação de Atas'),
               ],
             )),
-        body: SafeArea(child: Text('HomeController')));
+        body: const SafeArea(child: Text('HomeController')));
   }
 }
